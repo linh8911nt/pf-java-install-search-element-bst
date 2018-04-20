@@ -13,22 +13,22 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
 
     @Override
     public boolean insert(E e) {
-        if (root == null){
+        if (root == null) {
             root = createNewNode(e);
         } else {
             TreeNode<E> parent = null;
             TreeNode<E> current = root;
-            while (current != null){
-                if (e.compareTo(current.element) < 0){
+            while (current != null) {
+                if (e.compareTo(current.element) < 0) {
                     parent = current;
                     current = current.left;
-                } else if (e.compareTo(current.element) > 0){
+                } else if (e.compareTo(current.element) > 0) {
                     parent = current;
                     current = current.right;
                 } else
                     return false;
             }
-            if (e.compareTo(parent.element) < 0){
+            if (e.compareTo(parent.element) < 0) {
                 parent.left = createNewNode(e);
             } else {
                 parent.right = createNewNode(e);
@@ -38,18 +38,44 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         return true;
     }
 
-    protected TreeNode<E> createNewNode(E e){
+    protected TreeNode<E> createNewNode(E e) {
         return new TreeNode<>(e);
     }
 
-    public boolean search(E element){
-        if (root == null){
+    public void postorder() {
+        postorder(root);
+    }
+
+    public void postorder(TreeNode<E> root) {
+        if (root == null) {
+            return;
+        }
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.element + " ");
+    }
+
+    public void preorder() {
+        preoder(root);
+    }
+
+    public void preoder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        System.out.print(root.element + " ");
+        preoder(root.left);
+        preoder(root.right);
+    }
+
+    public boolean search(E element) {
+        if (root == null) {
             return false;
         } else {
-            while (root != null){
-                if (element.compareTo(root.element) < 0){
+            while (root != null) {
+                if (element.compareTo(root.element) < 0) {
                     root = root.left;
-                } else if (element.compareTo(root.element) > 0){
+                } else if (element.compareTo(root.element) > 0) {
                     root = root.right;
                 } else
                     return true;
@@ -68,8 +94,8 @@ public class BST<E extends Comparable<E>> extends AbstractTree<E> {
         inorder(root);
     }
 
-    protected void inorder(TreeNode<E> root){
-        if (root == null){
+    protected void inorder(TreeNode<E> root) {
+        if (root == null) {
             return;
         }
         inorder(root.left);
